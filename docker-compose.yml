@@ -1,0 +1,13 @@
+services:
+  gram:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: gram
+    env_file:
+      - .env
+    ports:
+      - "${PORT:-3000}:${PORT:-3000}"
+    volumes:
+      - ./src:/app/src:ro 
+      - ./logs:/app/logs

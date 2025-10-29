@@ -1,0 +1,19 @@
+{
+  "name": "telegram-webhook-forwarder",
+  "version": "1.0.0",
+  "main": "dist/main.js",
+  "scripts": {
+    "start": "node dist/main.js",
+    "dev": "tsx src/main.ts",
+    "build": "tsc --outDir dist"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "telegram": "^2.26.22"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.20.6",
+    "typescript": "^5.6.3"
+  }
+}
