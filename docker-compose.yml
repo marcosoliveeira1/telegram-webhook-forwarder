@@ -6,8 +6,8 @@ services:
     container_name: gram
     env_file:
       - .env
-    ports:
-      - "${PORT:-3000}:${PORT:-3000}"
+    # ports:
+    #   - "${PORT:-3000}:${PORT:-3000}"
     volumes:
-      - ./src:/app/src:ro 
+      - ./src:/app/src:ro
       - ./logs:/app/logs
