@@ -34,7 +34,7 @@ export class TelegramService {
   }
 
   isConnected(): boolean {
-    return this.client && this.client.connected;
+    return this?.client && this?.client?.connected === true;
   }
 
   onMessage(handler: (event: NewMessageEvent) => Promise<void>): void {
