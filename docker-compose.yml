@@ -5,10 +5,10 @@ services:
     restart: always
     env_file:
       - .env
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "${PORT:-3000}:${PORT:-3000}"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      test: ["CMD", "node", "scripts/healthcheck.js"]
       interval: 30s
       timeout: 10s
       retries: 3
