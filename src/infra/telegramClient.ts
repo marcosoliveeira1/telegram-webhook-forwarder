@@ -30,8 +30,11 @@ export class TelegramService {
     });
 
     console.log("✅ Connected successfully!");
-    console.log("🔑 Save this session string:\n", this.client.session.save());
     return this.client;
+  }
+
+  isConnected(): boolean {
+    return this.client && this.client.connected;
   }
 
   onMessage(handler: (event: NewMessageEvent) => Promise<void>): void {

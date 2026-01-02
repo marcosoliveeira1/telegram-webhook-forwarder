@@ -1,13 +1,15 @@
 services:
-  gram:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: gram
+  forwarder:
+    build: .
+    container_name: telegram-forwarder
+    restart: always
     env_file:
       - .env
-    # ports:
-    #   - "${PORT:-3000}:${PORT:-3000}"
-    volumes:
-      - ./src:/app/src:ro
-      - ./logs:/app/logs
+    ports:
+      - "3000:3000"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
