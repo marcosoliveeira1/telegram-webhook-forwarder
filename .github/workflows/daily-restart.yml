@@ -1,0 +1,16 @@
+name: Daily App Restart
+
+on:
+  schedule:
+    # 05:00 BRT é 08:00 UTC (3 horas a mais)
+    - cron: "0 8 * * *"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Coolify Restart/Deploy
+        run: |
+          curl --request GET '${{ secrets.COOLIFY_WEBHOOK }}' \
+               --header 'Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}'
