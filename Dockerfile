@@ -1,10 +1,11 @@
 FROM node:22-slim
 
-# Install Python (GramJS needs it for crypto)
+# Install Python (GramJS needs it for crypto) and wget
 RUN apt-get update && apt-get install -y \
     python3 \
     python3-pip \
     curl \
+    wget \
     && ln -s /usr/bin/python3 /usr/bin/python \
     && rm -rf /var/lib/apt/lists/*
 
