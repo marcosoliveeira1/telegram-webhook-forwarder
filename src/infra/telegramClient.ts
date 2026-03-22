@@ -38,6 +38,6 @@ export class TelegramService {
   }
 
   onMessage(handler: (event: NewMessageEvent) => Promise<void>): void {
-    this.client.addEventHandler(handler, new NewMessage({ incoming: true }));
+    this.client.addEventHandler(handler, new NewMessage({}));
   }
 }
