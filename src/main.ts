@@ -21,6 +21,9 @@ async function startApp() {
 
   const client = await telegram.connect();
 
+  // Fetch dialogs so gramJS registers all groups/channels for receiving updates
+  await client.getDialogs();
+
   const publishers = [
     new WebhookPublisher(webhookUrl)
   ];
