@@ -1,5 +1,6 @@
 import { MessagePublisher } from "../ports/MessagePublisher";
 import { NewMessageEvent } from "telegram/events";
+import { Api } from "telegram";
 
 export class MessageHandler {
   constructor(private publishers: MessagePublisher[]) {
@@ -9,20 +10,27 @@ export class MessageHandler {
   }
 
   async onMessage(event: NewMessageEvent): Promise<void> {
+    await this.forward(event.message, event.chatId?.toString() || null);
+  }
+
+  async forward(message: Api.Message, chatId: string | null): Promise<void> {
     try {
-      const { message } = event;
+      const photo =
+        message.photo && message.photo instanceof Api.Photo ? message.photo : null;
 
       const payload = {
         type: "message",
         text: message.text || "",
-        image: message.photo && 'id' in message.photo ? {
-          id: message.photo.id?.toString(),
-          accessHash: 'accessHash' in message.photo ? message.photo.accessHash?.toString() : null,
-        } : null,
+        image: photo
+          ? {
+              id: photo.id?.toString(),
+              accessHash: photo.accessHash?.toString() ?? null,
+            }
+          : null,
         timestamp: message.date,
-        chatId: event.chatId?.toString() || null,
+        chatId: chatId,
         isReply: message.replyToMsgId ? true : false,
-        photo: message.photo?.toJSON() || null,
+        photo: photo?.toJSON() || null,
       };
 
       const results = await Promise.allSettled(
